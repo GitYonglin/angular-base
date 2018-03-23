@@ -1,0 +1,22 @@
+<div>
+  <!-- // 插值绑定 -->
+  <h2>{{title}}</h2>
+  <!-- // {{}} 属性插值绑定 -->
+  <img src="{{imgUrl}}">
+  <!-- // [] 属性绑定 -->
+  <img [src]="imgUrl">
+  <div>
+    <!-- // () 事件绑定 -->
+    <button (click)="onClick()">点击一下试试</button>
+  </div>
+  <!-- // [()]双向数据绑定 -->
+  <input [(ngModel)]="name">
+  <p>{{name}}</p>
+  <!-- // # 模板变量 -->
+  <div #mydom ></div>
+  <!-- // 管道使用date内部时间格式化 -->
+  <p>{{currentTime | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
+  <!-- 自定义管道 -->
+  <p>{{ 100 | price}}</p>
+
+</div>
