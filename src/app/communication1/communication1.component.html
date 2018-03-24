@@ -1,0 +1,9 @@
+<div>
+  <h2>{{title}}</h2>
+  <div>
+    与父组件双向绑定的数据：
+    <input type="text" [(ngModel)]="count" (input)="onChange($event)">
+  </div>
+  <button (click)="emianEvent()">点击父组件事件</button>
+  <button (click)="testEventbus()">触发服务事件</button>
+</div>
