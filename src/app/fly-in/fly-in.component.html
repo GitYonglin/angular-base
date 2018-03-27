@@ -1,0 +1,5 @@
+<div [@flyIn]="state? 'active' : 'inactive'" *ngIf="show">
+  <h1>我是一个飞入组件</h1>
+  <button (click)="state = !state">active/inactive</button>
+</div>
+<button (click)="show = !show">显示/隐藏</button>
