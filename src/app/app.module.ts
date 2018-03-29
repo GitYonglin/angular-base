@@ -4,10 +4,15 @@ import { Route, RouterModule } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { JokesComponent } from './jokes/jokes.component';
+// import { HomeComponent } from './home/home.component';
+// import { JokesComponent } from './jokes/jokes.component';
 
 import { appRoutes } from './app.routes';
+// import { UserInfoComponent } from './shared/user-info/user-info.component';
+
+import { SharedModule } from './shared/shared.module';
+
+import { RouterPreloadingStrategy } from './common/route-preloading-strategy';
 
 @NgModule({
   declarations: [
@@ -18,9 +23,12 @@ import { appRoutes } from './app.routes';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    SharedModule,
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: RouterPreloadingStrategy})
   ],
-  providers: [],
+  providers: [
+    RouterPreloadingStrategy
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,8 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { routes } from './jokes.routes';
 import { JokesComponent } from './jokes.component';
 
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
-  imports: [ RouterModule.forChild(routes) ],
+  imports: [
+    SharedModule,
+    RouterModule.forChild(routes)
+  ],
   declarations: [
     JokesComponent
   ],

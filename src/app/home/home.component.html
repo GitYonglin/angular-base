@@ -1,3 +1,10 @@
 <h1>
   home works!
 </h1>
+<div>
+  <a [routerLink]="[ 'picture', 1]">图片</a>
+  <a [routerLink]="[ 'text', {name: 'peach', nakeName:'桃子', age: 18}]">文子</a>
+  <router-outlet></router-outlet>
+</div>
+<hr>
+<app-user-info></app-user-info>
