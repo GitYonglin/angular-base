@@ -7,14 +7,19 @@ import { Router  } from '@angular/router';
   styleUrls: ['./jokes.component.scss']
 })
 export class JokesComponent implements OnInit {
-
+  // 跳转标志位
+  public saved = true;
   constructor( private router: Router) { }
 
   ngOnInit() {
-    // 监听路由事件触发后全局都会监听到
-    // this.router.events.subscribe(param => {
-    //   console.log(param);
-    // });
   }
 
+  input(value) {
+    console.log(value.data);
+    this.saved = false;
+  }
+
+  sver() {
+    this.saved = true;
+  }
 }

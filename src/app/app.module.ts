@@ -12,7 +12,8 @@ import { appRoutes } from './app.routes';
 
 import { SharedModule } from './shared/shared.module';
 
-import { RouterPreloadingStrategy } from './common/route-preloading-strategy';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,11 @@ import { RouterPreloadingStrategy } from './common/route-preloading-strategy';
   imports: [
     BrowserModule,
     SharedModule,
-    RouterModule.forRoot(appRoutes, {preloadingStrategy: RouterPreloadingStrategy})
-    // RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules}) // 全部预加载
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    RouterPreloadingStrategy
+    AuthGuard,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
