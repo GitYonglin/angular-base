@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
+import { Route, RouterModule, PreloadAllModules } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
@@ -25,6 +25,7 @@ import { RouterPreloadingStrategy } from './common/route-preloading-strategy';
     BrowserModule,
     SharedModule,
     RouterModule.forRoot(appRoutes, {preloadingStrategy: RouterPreloadingStrategy})
+    // RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules}) // 全部预加载
   ],
   providers: [
     RouterPreloadingStrategy
