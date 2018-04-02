@@ -1,25 +1,13 @@
-<!-- <h2>Hero Detail</h2>
-<h3>
-  <i>FormControl in a FormGroup</i>
-</h3>
-<form [formGroup]="heroForm">
-  <div >
-    <label >Name:
-      <input formControlName="name">
-    </label>
-  </div>
-</form> -->
-
-<form [formGroup]="userForm" role="form" novalidate>
-  <div>
-    <!-- <label>{{'userRegister.userName' | translate}}</label> -->
-    <div>
-      <input formControlName="userName" type="text"
-        >
-      <div *ngIf="formErrors.userName" >
-        {{ formErrors.userName }}
+<div class="user-profile-container">
+  <form class="form-horizontal" role="form" [formGroup]="form">
+      <div *ngFor="let field of fields" class="form-group">
+          <app-form-control [form]="form" [field]="field"></app-form-control>
       </div>
-    </div>
-  </div>
-</form>
+      <div class="form-group">
+          <div class="col-md-offset-2 col-md-10">
+              <button type="button" class="btn btn-success">保存</button>
+          </div>
+      </div>
+  </form>
+</div>
 

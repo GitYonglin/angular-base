@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RegisterModel } from './model/register-model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+
+import { FieldBase, Image, Textbox, TextArea } from './dynamic-form/form-field';
 
 @Component({
   selector: 'app-root',
@@ -8,60 +10,56 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public userForm: FormGroup;
-  public userInfo = new RegisterModel();
-  // 数据key
-  public formErrors = {
-    'userName': ''
-  };
-  // 验证提示数据
-  validationMessages = {
-    'userName': {
-      'required': '用户名必须输入。',
-      'minlength': '用户名4到32个字符。'
-    }
-  };
+  @Input() fields: FieldBase<any>[] = [
+    new Image({
+      src: 'https://cdn2.jianshu.io/assets/web/logo-58fd04f6f0de908401aa561cda6a0688.png'
+    }),
+    new Textbox({
+      label: '头像:',
+      placeholder: '上传头像',
+      type: 'file'
+    }),
+    new Textbox({
+      label: '用户名:',
+      placeholder: '用户名'
+    }),
+    new Textbox({
+      label: '常用邮箱:',
+      placeholder: '常用邮箱'
+    }),
+    new Textbox({
+      label: '密码:',
+      type: 'password',
+      placeholder: '密码，至少8位'
+    }),
+    new Textbox({
+      label: '重复密码:',
+      type: 'password',
+      placeholder: '重复密码'
+    }),
+    new TextArea({
+      label: '个人简介:',
+      placeholder: '个人简介，最多140字，不能放链接。',
+      rows: 3,
+    })
+  ];
 
-  constructor(public fb: FormBuilder,
-  ) { }
+  public form: FormGroup;
+
+  constructor() {
+  }
 
   ngOnInit() {
-    this.buildForm();
+    this.form = this.toFormGroup(this.fields);
   }
-  // 数据验证提示
-  onValueChanged(data?: any) {
-    if (!this.userForm) {
-      return;
-    }
-    const form = this.userForm;
-    // tslint:disable-next-line:forin
-    for (const field in this.formErrors) {
-      console.log(field);
-      this.formErrors[field] = '';
-      const control = form.get(field);
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        // tslint:disable-next-line:forin
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
-    }
-  }
-  // 数据绑定与验证规则设置
-  buildForm(): void {
-    this.userForm = this.fb.group({
-      'userName': [
-        this.userInfo.userName,
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(32)
-        ]
-      ],
+
+  toFormGroup(fields: FieldBase<any>[]) {
+    // tslint:disable-next-line:prefer-const
+    let group: any = {};
+
+    fields.forEach(field => {
+      group[field.key] = new FormControl(field.value || '');
     });
-    this.userForm.valueChanges
-      .subscribe(data => this.onValueChanged(data));
-    this.onValueChanged();
+    return new FormGroup(group);
   }
 }
