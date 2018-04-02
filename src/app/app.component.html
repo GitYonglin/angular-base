@@ -1,9 +1,51 @@
-<input type="email"  placeholder="Email" [(ngModel)]="regModel.userName" >
+<form #registerForm="ngForm" >
+  <div>
+    <label >用户名：</label>
+    <div>
+      <input
+        #userName="ngModel"
+        [(ngModel)]="regModel.userName"
+        name="userName"
+        type="email"
+        placeholder="Email"
+        required minlength="12"
+        maxlength="32">
+      <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="text-danger">
+        <div *ngIf="userName.errors.required">
+          用户名不能为空
+        </div>
+        <div *ngIf="userName.errors.minlength">
+          最小长度不能小于12个字符
+        </div>
+        <div *ngIf="userName.errors.maxlength">
+          最大长度不能大于32个字符
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <label >手机号码：</label>
+    <input #mobile="ngModel" [(ngModel)]="regModel.mobile" name="mobile" ChineseMobileValidator placeholder="Mobile">
+    <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="text-danger">
+      <div *ngIf="!mobile.errors.ChineseMobileValidator">
+        请输入合法的手机号
+      </div>
+    </div>
+  </div>
+</form>
 
-<input type="password"  placeholder="Password" [(ngModel)]="regModel.password" >
+<div>
+  <p>用户名：{{userName.value}}</p>
+  <!-- <p>密码：{{pwd.value}}</p> -->
+  <h2>表达状态</h2>
+      <p>{{registerForm.valid}}：校验成功</p>
+      <p>{{registerForm.invalid}}：校验失败</p>
+      <p>{{registerForm.pending}}：表单正在提交过程中</p>
+      <p>{{registerForm.pristine}}：数据依然处于原始状态，用户没有修改过</p>
+      <p>{{registerForm.dirty}}：数据已经变脏了，被用户改过了</p>
+      <p>{{registerForm.touched}}：被触摸或者点击过</p>
+      <p>{{registerForm.untouched}}：未被触摸或者点击</p>
+      <p>{{registerForm.enabled}}：启用状态</p>
+      <p>{{registerForm.disabled}}：禁用状态</p>
+</div>
 
-<input type="checkbox" [(ngModel)]="regModel.rememberMe">记住我
-
-<p>邮箱：{{regModel.userName}}</p>
-<p>密码：{{regModel.password}}</p>
-<p>选择：{{regModel.rememberMe}}</p>
