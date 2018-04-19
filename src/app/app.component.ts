@@ -12,14 +12,19 @@ export class AppComponent implements OnInit {
   public userInfo = new RegisterModel();
   // 数据key
   public formErrors = {
-    'userName': ''
+    userName: '',
+    password: '',
   };
   // 验证提示数据
   validationMessages = {
-    'userName': {
-      'required': '用户名必须输入。',
-      'minlength': '用户名4到32个字符。'
-    }
+    userName: {
+      required: '用户名必须输入。',
+      minlength: '用户名4到32个字符。'
+    },
+    password: {
+      required: '用户名必须输入。',
+      minlength: '用户名4到32个字符。'
+    },
   };
 
   constructor(public fb: FormBuilder,
@@ -51,8 +56,16 @@ export class AppComponent implements OnInit {
   // 数据绑定与验证规则设置
   buildForm(): void {
     this.userForm = this.fb.group({
-      'userName': [
+      userName: [
         this.userInfo.userName,
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(32)
+        ]
+      ],
+      password: [
+        this.userInfo.password,
         [
           Validators.required,
           Validators.minLength(4),
